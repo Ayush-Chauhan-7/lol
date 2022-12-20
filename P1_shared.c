@@ -30,6 +30,7 @@ int main()
             strcpy(shared_memory,strings[i+j]);
             while(*shared_memory!=-1);
         }
+        printf("Maximum ID recieved: %d\n",(int)shared_memory);
     }
     return 0;
 }
