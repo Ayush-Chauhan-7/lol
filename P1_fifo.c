@@ -1,21 +1,21 @@
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <errno.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <time.h>
-//client
-//P1 FIFO client
+
 void sync(void);
 struct pair {
-    int ID;
     char str_value[7];
+    int ID;
+    int flag;
 };
+
 int main()
 {
     mkfifo("/tmp/randomStrings_2020026_FIFO", 0666);
@@ -31,16 +31,17 @@ int main()
     int num=0;
     while(num<50) {
         struct pair sending[5];
-        for (int i = 0; i < 5; i++) {
+        int i = 0;
+        while(i<5) {
             sending[i].ID = num+i;
             strncpy(sending[i].str_value, strings[sending[i].ID], sizeof(strings[sending[i].ID]));
+            i++;
         }
         printf("Writing the 5 arrays into the FIFO file ...\n");
         int fd = open("/tmp/randomStrings_2020026_FIFO", O_WRONLY);
         int write_ret = write(fd, sending, sizeof(sending));
         close(fd);
         fd = open("/tmp/randomStrings_2020026_FIFO", O_RDONLY);
-
         struct pair p;
         int read_ret = read(fd, &p, sizeof(p));
         if (read_ret == -1) {
