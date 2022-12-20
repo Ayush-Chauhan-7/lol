@@ -6,11 +6,11 @@
 
 int main()
 {
-    void *shared_memory;  
+    char *shared_memory;  
     char buff[6];  
     int shmid;  
-    shmid=shmget((key_t)2345, 1024, 0666);
-    shared_memory=shmat(shmid,NULL,0);
-    printf("Data read from shared memory is : %s\n",(char *)shared_memory); 
+    shmid=shmget((key_t)2345, 1024, 0666|IPC_CREAT);
+    shared_memory=(char *)shmat(shmid,NULL,0);
+    printf("Data read from shared memory is : %s\n",shared_memory); 
     return 0;
 }
