@@ -25,6 +25,8 @@ int main()
             printf("String Value: %s\n",shared_memory);
             *shared_memory = -1;
         }
+        printf("\n");
+        strcpy(shared_memory,(char)i+5);
     }
     return 0;
 }
