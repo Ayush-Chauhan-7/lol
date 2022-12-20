@@ -2,7 +2,12 @@
 #include<stdlib.h>  
 #include<unistd.h>  
 #include<sys/shm.h>  
-#include<string.h>
+#include<string.h>  
+#include <stdbool.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <time.h>
 
 int main()
 {
@@ -11,6 +16,15 @@ int main()
     int shmid;  
     shmid=shmget((key_t)2345, 1024, 0666|IPC_CREAT);
     shared_memory=(char *)shmat(shmid,NULL,0);
-    printf("Data read from shared memory is : %s\n",shared_memory); 
+    for(int i=0;i<50;i+=5)
+    {
+        for(int j=0;j<5;j++)
+        {
+            while(shared_memory=='7')
+            printf("String ID: %d\n",i+1);
+            printf("String Value: %s\n",shared_memory);
+            strcpy(shared_memory,'7');
+        }
+    }
     return 0;
 }
