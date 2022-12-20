@@ -41,17 +41,17 @@ int main()
         int write_ret = write(fd, sending, sizeof(sending));
         close(fd);
         printf("Writing the 5 arrays into the FIFO file ...\n");
-        struct pair p;
         fd = open("/tmp/randomStrings_2020026_FIFO", O_RDONLY);
+        struct pair p;
         int read_ret = read(fd, &p, sizeof(p));
         if (read_ret == -1) {
             printf("Error\n");
             exit(EXIT_FAILURE);
         }
         printf("Resultant string received from P2 = %s\n\n", p.str_value);
-        sleep(1);
         num = p.ID+1;
         close(fd);
+        sleep(1);
     }
     unlink("/tmp/randomStrings_2020026_FIFO");
     return 0;
