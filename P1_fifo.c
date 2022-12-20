@@ -20,38 +20,38 @@ int main()
 {
     char strings[50][7];
     char alphabet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    for (int i = 0; i < 50; i++) {
-        for (int j = 0; j < 6; j++) {
+    int j=0;
+    int i=0;
+    while((i++)<50){
+        while((j++)<6) {
             strings[i][j] = alphabet[rand() % 52];
         }
         strings[i][6]='\0';
     }
-
-    mkfifo("/tmp/randomStrings_2020026_FIFO", 0666);
     int num=0;
+    mkfifo("/tmp/randomStrings_2020026_FIFO", 0666);
     while(num<50) {
+        int i = 0;
         struct pair sending[5];
-        for (int i = 0; i < 5; i++) {
+        while((i++)<5){
             sending[i].ID = num+i;
             strncpy(sending[i].str_value, strings[sending[i].ID], sizeof(strings[sending[i].ID]));
         }
-        printf("Writing the 5 arrays into the FIFO file ...\n");
         int fd = open("/tmp/randomStrings_2020026_FIFO", O_WRONLY);
         printf("Writing the 5 arrays into the FIFO file ...\n");
         int write_ret = write(fd, sending, sizeof(sending));
         close(fd);
-        fd = open("/tmp/randomStrings_2020026_FIFO", O_RDONLY);
-
         struct pair p;
+        fd = open("/tmp/randomStrings_2020026_FIFO", O_RDONLY);
         int read_ret = read(fd, &p, sizeof(p));
         if (read_ret == -1) {
-            perror("read");
+            printf("Error\n");
             exit(EXIT_FAILURE);
         }
         printf("Resultant string received from P2 = %s\n\n", p.str_value);
+        sleep(1);
         num = p.ID+1;
         close(fd);
-        sleep(1);
     }
     unlink("/tmp/randomStrings_2020026_FIFO");
     return 0;
