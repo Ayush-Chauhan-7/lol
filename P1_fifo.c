@@ -38,9 +38,9 @@ int main()
             strncpy(sending[i].str_value, strings[sending[i].ID], sizeof(strings[sending[i].ID]));
         }
         int fd = open("/tmp/randomStrings_2020026_FIFO", O_WRONLY);
-        printf("Writing the 5 arrays into the FIFO file ...\n");
         int write_ret = write(fd, sending, sizeof(sending));
         close(fd);
+        printf("Writing the 5 arrays into the FIFO file ...\n");
         struct pair p;
         fd = open("/tmp/randomStrings_2020026_FIFO", O_RDONLY);
         int read_ret = read(fd, &p, sizeof(p));
