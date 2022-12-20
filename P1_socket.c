@@ -12,12 +12,12 @@
 void getRandStr(char randstrs[][12], int flag) {        
     srand (time(NULL));   
     int j = 0;                         
-    while((j++)<50) {
+    while((j++)<=50) {
         randstrs[j][0] = j;
     }
     int i = 0;
     j = 1;
-    while((i++)<50) {
+    while((i++)<=50) {
 		while((j++)<=10) {
 			randstrs[i][j] = rand() % 26 + 65;
 		}
