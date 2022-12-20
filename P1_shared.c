@@ -28,7 +28,7 @@ int main()
         for(int j=0;j<5;j++)
         {
             strcpy(shared_memory,strings[i+j]);
-            while(str!='7');
+            while(shared_memory!='7');
         }
     }
     return 0;
