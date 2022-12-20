@@ -21,7 +21,7 @@ int main()
         for(int j=0;j<5;j++)
         {
             while(*shared_memory==-1)
-            printf("String ID: %d\n",i+1);
+            printf("String ID: %d\n",i+j);
             printf("String Value: %s\n",shared_memory);
             *shared_memory = -1;
         }
