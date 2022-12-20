@@ -20,10 +20,10 @@ int main()
     {
         for(int j=0;j<5;j++)
         {
-            while(shared_memory=='7')
+            while(*shared_memory==-1)
             printf("String ID: %d\n",i+1);
             printf("String Value: %s\n",shared_memory);
-            strcpy(shared_memory,'7');
+            *shared_memory = -1;
         }
     }
     return 0;
