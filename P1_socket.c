@@ -9,16 +9,14 @@
 #define SOCKET_NAME "mySocket.socket"
 #define BUFFER_SIZE 10
 
-void getRandStr(char randstrs[][12], int flag) {        
-    srand (time(NULL));   
-    int j = 0;                         
-    while((j++)<=50) {
+void getRandStr(char randstrs[][12],int flag) {        
+    srand (time(NULL));                            
+    for (int j = 0; j <= 50; j++) {
         randstrs[j][0] = j;
     }
-    int i = 0;
-    j = 1;
-    while((i++)<=50) {
-		while((j++)<=10) {
+    
+    for(int i = 0; i <= 50; i++) {
+		for(int j = 1; j <= 10; j++) {
 			randstrs[i][j] = rand() % 26 + 65;
 		}
 	}
